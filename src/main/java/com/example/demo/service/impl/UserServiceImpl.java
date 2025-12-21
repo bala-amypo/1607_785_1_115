@@ -34,4 +34,9 @@ public class UserServiceImpl implements UserService {
     public boolean emailExists(String email) {
         return userRepository.existsByEmail(email);
     }
+    @Override
+    public User register(User user) {
+    return saveUser(user);
+}
+
 }
