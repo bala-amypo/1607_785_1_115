@@ -1,11 +1,13 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.ShipmentRecord;
-import java.util.*;
+import com.example.demo.model.ShipmentRecord;
+import java.util.List;
 
 public interface ShipmentRecordService {
-    ShipmentRecord createShipment(ShipmentRecord shipment);
-    ShipmentRecord updateShipmentStatus(Long id, String status);
-    Optional<ShipmentRecord> getShipmentByCode(String code);
-    List<ShipmentRecord> getAllShipments();
+
+    ShipmentRecord save(ShipmentRecord record);
+
+    ShipmentRecord findByShipmentCode(String code);
+
+    List<ShipmentRecord> findAll();
 }
