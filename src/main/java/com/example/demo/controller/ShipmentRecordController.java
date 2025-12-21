@@ -5,11 +5,11 @@ import com.example.demo.service.ShipmentRecordService;
 
 @RestController
 @RequestMapping("/api/shipments")
-public class ShipmentController {
+public class ShipmentRecordController {
 
     private final ShipmentRecordService service;
 
-    public ShipmentController(ShipmentRecordService service) {
+    public ShipmentRecordController(ShipmentRecordService service) {
         this.service = service;
     }
 
