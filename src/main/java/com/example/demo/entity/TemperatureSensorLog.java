@@ -27,4 +27,7 @@ public class TemperatureSensorLog {
     }
 
     // getters
+    public Long getShipmentId() { return shipmentId; }
+    public Double getTemperatureValue() { return temperatureValue; }
+    public String getLocation() { return location; }
 }

@@ -21,14 +21,16 @@ public class TemperatureRule {
     public TemperatureRule() {}
 
     public TemperatureRule(String productType, Double minTemp, Double maxTemp,
-                           boolean active, LocalDate effectiveFrom, LocalDate effectiveTo) {
+                           boolean active, LocalDate from, LocalDate to) {
         this.productType = productType;
         this.minTemp = minTemp;
         this.maxTemp = maxTemp;
         this.active = active;
-        this.effectiveFrom = effectiveFrom;
-        this.effectiveTo = effectiveTo;
+        this.effectiveFrom = from;
+        this.effectiveTo = to;
     }
 
-    // getters and setters
+    // getters
+    public Double getMinTemp() { return minTemp; }
+    public Double getMaxTemp() { return maxTemp; }
 }

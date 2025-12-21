@@ -25,11 +25,18 @@ public class ShipmentRecord {
     }
 
     @PrePersist
-    public void prePersist() {
-        if (this.status == null) {
-            this.status = "IN_TRANSIT";
+    public void defaultStatus() {
+        if (status == null) {
+            status = "IN_TRANSIT";
         }
     }
 
-    // getters and setters
+    // getters & setters
+    public Long getId() { return id; }
+    public String getShipmentCode() { return shipmentCode; }
+    public String getOrigin() { return origin; }
+    public String getDestination() { return destination; }
+    public String getStatus() { return status; }
+
+    public void setStatus(String status) { this.status = status; }
 }
