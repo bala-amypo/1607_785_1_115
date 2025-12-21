@@ -5,11 +5,11 @@ import com.example.demo.service.BreachDetectionService;
 
 @RestController
 @RequestMapping("/api/breaches")
-public class BreachController {
+public class BreachReController {
 
     private final BreachDetectionService service;
 
-    public BreachController(BreachDetectionService service) {
+    public BreachReController(BreachDetectionService service) {
         this.service = service;
     }
 
