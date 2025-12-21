@@ -1,0 +1,20 @@
+package com.example.demo.controller;
+
+import org.springframework.web.bind.annotation.*;
+import com.example.demo.service.ShipmentRecordService;
+
+@RestController
+@RequestMapping("/api/shipments")
+public class ShipmentController {
+
+    private final ShipmentRecordService service;
+
+    public ShipmentController(ShipmentRecordService service) {
+        this.service = service;
+    }
+
+    @GetMapping
+    public String getAll() {
+        return "shipments";
+    }
+}
