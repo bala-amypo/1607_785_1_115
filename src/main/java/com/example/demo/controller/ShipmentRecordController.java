@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/shipments")
-public class ShipmentController {
+public class ShipmentRecordController {
 
     private final ShipmentRecordService service;
 
