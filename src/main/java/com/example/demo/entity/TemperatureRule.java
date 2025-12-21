@@ -30,7 +30,6 @@ public class TemperatureRule {
         this.effectiveTo = to;
     }
 
-    // getters
     public Double getMinTemp() { return minTemp; }
     public Double getMaxTemp() { return maxTemp; }
 }

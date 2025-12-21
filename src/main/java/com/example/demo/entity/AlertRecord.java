@@ -18,19 +18,14 @@ public class AlertRecord {
 
     public AlertRecord() {}
 
-    public AlertRecord(Long shipmentId, Long breachId,
-                       boolean acknowledged, LocalDateTime sentAt) {
+    public AlertRecord(Long shipmentId, Long breachId) {
         this.shipmentId = shipmentId;
         this.breachId = breachId;
-        this.acknowledged = acknowledged;
-        this.sentAt = sentAt;
     }
 
     @PrePersist
-    public void prePersist() {
-        this.acknowledged = false;
-        this.sentAt = LocalDateTime.now();
+    public void init() {
+        acknowledged = false;
+        sentAt = LocalDateTime.now();
     }
-
-    // getters and setters
 }

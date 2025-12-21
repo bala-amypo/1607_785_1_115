@@ -19,18 +19,19 @@ public class BreachRecord {
     public BreachRecord() {}
 
     public BreachRecord(Long shipmentId, Long logId,
-                        Double breachValue, String severity, boolean resolved) {
+                        Double breachValue, String severity) {
         this.shipmentId = shipmentId;
         this.logId = logId;
         this.breachValue = breachValue;
         this.severity = severity;
-        this.resolved = resolved;
     }
 
     @PrePersist
-    public void prePersist() {
-        this.resolved = false;
+    public void setDefaultResolved() {
+        resolved = false;
     }
 
-    // getters and setters
+    public void resolve() {
+        this.resolved = true;
+    }
 }
