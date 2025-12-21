@@ -1,9 +1,9 @@
-package com.example.demo.entity;
+package com.example.demo.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "breach_records")
 public class BreachRecord {
 
     @Id
@@ -12,26 +12,18 @@ public class BreachRecord {
 
     private Long shipmentId;
     private Long logId;
+    private String breachType;
     private Double breachValue;
     private String severity;
-    private boolean resolved;
-
-    public BreachRecord() {}
-
-    public BreachRecord(Long shipmentId, Long logId,
-                        Double breachValue, String severity) {
-        this.shipmentId = shipmentId;
-        this.logId = logId;
-        this.breachValue = breachValue;
-        this.severity = severity;
-    }
+    private String details;
+    private LocalDateTime detectedAt;
+    private Boolean resolved;
 
     @PrePersist
-    public void setDefaultResolved() {
+    public void onCreate() {
+        detectedAt = LocalDateTime.now();
         resolved = false;
     }
 
-    public void resolve() {
-        this.resolved = true;
-    }
+    // getters & setters
 }

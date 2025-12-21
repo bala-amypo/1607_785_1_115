@@ -1,42 +1,30 @@
-package com.example.demo.entity;
+package com.example.demo.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "shipment_records")
 public class ShipmentRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String shipmentCode;
+
     private String origin;
     private String destination;
-    private String status;
-
-    public ShipmentRecord() {}
-
-    public ShipmentRecord(String shipmentCode, String origin, String destination, String status) {
-        this.shipmentCode = shipmentCode;
-        this.origin = origin;
-        this.destination = destination;
-        this.status = status;
-    }
+    private String productType;
+    private LocalDateTime startDate;
+    private LocalDateTime expectedDelivery;
+    private String status = "IN_TRANSIT";
+    private LocalDateTime createdAt;
 
     @PrePersist
-    public void defaultStatus() {
-        if (status == null) {
-            status = "IN_TRANSIT";
-        }
+    public void onCreate() {
+        createdAt = LocalDateTime.now();
     }
 
     // getters & setters
-    public Long getId() { return id; }
-    public String getShipmentCode() { return shipmentCode; }
-    public String getOrigin() { return origin; }
-    public String getDestination() { return destination; }
-    public String getStatus() { return status; }
-
-    public void setStatus(String status) { this.status = status; }
 }

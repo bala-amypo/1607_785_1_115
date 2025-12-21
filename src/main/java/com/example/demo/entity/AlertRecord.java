@@ -1,10 +1,9 @@
-package com.example.demo.entity;
+package com.example.demo.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "alert_records")
 public class AlertRecord {
 
     @Id
@@ -13,19 +12,16 @@ public class AlertRecord {
 
     private Long shipmentId;
     private Long breachId;
-    private boolean acknowledged;
+    private String alertType;
+    private String message;
     private LocalDateTime sentAt;
-
-    public AlertRecord() {}
-
-    public AlertRecord(Long shipmentId, Long breachId) {
-        this.shipmentId = shipmentId;
-        this.breachId = breachId;
-    }
+    private Boolean acknowledged;
 
     @PrePersist
-    public void init() {
-        acknowledged = false;
+    public void onCreate() {
         sentAt = LocalDateTime.now();
+        acknowledged = false;
     }
+
+    // getters & setters
 }

@@ -1,10 +1,9 @@
-package com.example.demo.entity;
+package com.example.demo.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "temperature_sensor_logs")
 public class TemperatureSensorLog {
 
     @Id
@@ -12,22 +11,15 @@ public class TemperatureSensorLog {
     private Long id;
 
     private Long shipmentId;
-    private Double temperatureValue;
+    private String sensorId;
     private LocalDateTime recordedAt;
+    private Double temperatureValue;
     private String location;
 
-    public TemperatureSensorLog() {}
-
-    public TemperatureSensorLog(Long shipmentId, Double temperatureValue,
-                                LocalDateTime recordedAt, String location) {
-        this.shipmentId = shipmentId;
-        this.temperatureValue = temperatureValue;
-        this.recordedAt = recordedAt;
-        this.location = location;
+    @PrePersist
+    public void onCreate() {
+        recordedAt = LocalDateTime.now();
     }
 
-    // getters
-    public Long getShipmentId() { return shipmentId; }
-    public Double getTemperatureValue() { return temperatureValue; }
-    public String getLocation() { return location; }
+    // getters & setters
 }
