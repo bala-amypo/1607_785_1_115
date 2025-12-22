@@ -1,31 +1,30 @@
-package com.example.demo.entity;
+package com.example.demo.model;
 
-public class Shipment {
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
+@Entity
+public class ShipmentRecord {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String productName;
-    private double minTemp;
-    private double maxTemp;
 
-    // Constructors
-    public Shipment() {}
-    public Shipment(Long id, String productName, double minTemp, double maxTemp) {
-        this.id = id;
-        this.productName = productName;
-        this.minTemp = minTemp;
-        this.maxTemp = maxTemp;
+    @Column(unique = true)
+    private String shipmentCode;
+
+    private String origin;
+    private String destination;
+    private String productType;
+    private LocalDateTime startDate;
+    private LocalDateTime expectedDelivery;
+    private String status = "IN_TRANSIT";
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    public void onCreate() {
+        createdAt = LocalDateTime.now();
     }
 
-    // Getters and Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public String getProductName() { return productName; }
-    public void setProductName(String productName) { this.productName = productName; }
-
-    public double getMinTemp() { return minTemp; }
-    public void setMinTemp(double minTemp) { this.minTemp = minTemp; }
-
-    public double getMaxTemp() { return maxTemp; }
-    public void setMaxTemp(double maxTemp) { this.maxTemp = maxTemp; }
+    // getters & setters
 }
