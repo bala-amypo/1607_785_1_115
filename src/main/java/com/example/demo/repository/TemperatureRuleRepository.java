@@ -1,4 +1,12 @@
-public interface TemperatureRuleRepository extends JpaRepository<TemperatureRule, Long> {
-    @Query("select r from TemperatureRule r where r.productType = ?1 and r.active = true")
-    Optional<TemperatureRule> findActiveRule(String productType);
+package com.example.demo.repository;
+
+import com.example.demo.entity.TemperatureRule;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.Optional;
+
+public interface TemperatureRuleRepository
+        extends JpaRepository<TemperatureRule, Long> {
+
+    Optional<TemperatureRule> findById(Long id);
 }

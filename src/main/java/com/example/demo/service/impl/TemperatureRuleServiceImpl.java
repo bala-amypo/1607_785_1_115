@@ -1,3 +1,12 @@
+package com.example.demo.service.impl;
+
+import com.example.demo.entity.TemperatureRule;
+import com.example.demo.repository.TemperatureRuleRepository;
+import com.example.demo.service.TemperatureRuleService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 @Service
 public class TemperatureRuleServiceImpl implements TemperatureRuleService {
 
@@ -7,22 +16,12 @@ public class TemperatureRuleServiceImpl implements TemperatureRuleService {
         this.repo = repo;
     }
 
+    @Override
     public TemperatureRule createRule(TemperatureRule rule) {
         return repo.save(rule);
     }
 
-    public TemperatureRule updateRule(Long id, TemperatureRule rule) {
-        TemperatureRule r = repo.findById(id).orElseThrow();
-        r.setMinTemp(rule.getMinTemp());
-        r.setMaxTemp(rule.getMaxTemp());
-        r.setActive(rule.getActive());
-        return repo.save(r);
-    }
-
-    public TemperatureRule getActiveRule(String productType, LocalDate date) {
-        return repo.findActiveRule(productType).orElseThrow();
-    }
-
+    @Override
     public List<TemperatureRule> getAllRules() {
         return repo.findAll();
     }

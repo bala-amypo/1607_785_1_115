@@ -1,11 +1,11 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.User;
+import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/auth")
 public class UserController {
 
     private final UserService service;
@@ -16,6 +16,11 @@ public class UserController {
 
     @PostMapping("/register")
     public User register(@RequestBody User user) {
-        return service.saveUser(user);
+        return service.registerUser(user);
+    }
+
+    @PostMapping("/login")
+    public User login(@RequestBody User user) {
+        return service.findByEmail(user.getEmail());
     }
 }
