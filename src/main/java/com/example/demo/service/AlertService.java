@@ -4,8 +4,12 @@ import com.example.demo.entity.AlertRecord;
 import java.util.List;
 
 public interface AlertService {
-    AlertRecord triggerAlert(AlertRecord alert);
-    AlertRecord acknowledgeAlert(Long id);
-    List<AlertRecord> getAlertsByShipment(Long shipmentId);
-    List<AlertRecord> getAllAlerts();
+
+    AlertRecord create(AlertRecord record);
+
+    AlertRecord update(Long id, AlertRecord record);
+
+    List<AlertRecord> getAll();
+
+    List<AlertRecord> getByShipmentId(Long shipmentId);
 }

@@ -1,5 +1,13 @@
+package com.example.demo.controller;
+
+import com.example.demo.entity.TemperatureRule;
+import com.example.demo.service.TemperatureRuleService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
-@RequestMapping("/api/rules")
+@RequestMapping("/temperature-rules")
 public class TemperatureRuleController {
 
     private final TemperatureRuleService service;
@@ -9,17 +17,19 @@ public class TemperatureRuleController {
     }
 
     @PostMapping
-    public TemperatureRule create(@RequestBody TemperatureRule r) {
-        return service.createRule(r);
+    public TemperatureRule create(@RequestBody TemperatureRule rule) {
+        return service.create(rule);
     }
 
     @PutMapping("/{id}")
-    public TemperatureRule update(@PathVariable Long id, @RequestBody TemperatureRule r) {
-        return service.updateRule(id, r);
+    public TemperatureRule update(
+            @PathVariable Long id,
+            @RequestBody TemperatureRule rule) {
+        return service.update(id, rule);
     }
 
     @GetMapping
     public List<TemperatureRule> getAll() {
-        return service.getAllRules();
+        return service.getAll();
     }
 }
