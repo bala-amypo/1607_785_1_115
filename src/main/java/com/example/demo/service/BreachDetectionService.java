@@ -1,11 +1,11 @@
 package com.example.demo.service;
 
-import com.example.demo.model.BreachRecord;
+import com.example.demo.entity.BreachRecord;
 import java.util.List;
 
 public interface BreachDetectionService {
-
-    BreachRecord save(BreachRecord record);
-
-    List<BreachRecord> findByShipmentId(Long shipmentId);
+    BreachRecord logBreach(BreachRecord breach);
+    BreachRecord resolveBreach(Long id);
+    List<BreachRecord> getBreachesByShipment(Long shipmentId);
+    List<BreachRecord> getAllBreaches();
 }
