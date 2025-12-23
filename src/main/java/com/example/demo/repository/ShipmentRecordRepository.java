@@ -1,9 +1,11 @@
 package com.example.demo.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.example.demo.model.ShipmentRecord;
+import com.example.demo.entity.*;
+import java.util.List;
+import java.util.Optional;
+import org.springframework.data.jpa.repository.Query;
 
 public interface ShipmentRecordRepository extends JpaRepository<ShipmentRecord, Long> {
-
-    ShipmentRecord findByShipmentCode(String code);
+    Optional<ShipmentRecord> findByShipmentCode(String code);
 }
