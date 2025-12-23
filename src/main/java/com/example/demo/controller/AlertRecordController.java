@@ -1,8 +1,3 @@
-package com.example.demo.controller;
-
-import org.springframework.web.bind.annotation.*;
-import com.example.demo.service.AlertService;
-
 @RestController
 @RequestMapping("/api/alerts")
 public class AlertRecordController {
@@ -13,8 +8,23 @@ public class AlertRecordController {
         this.service = service;
     }
 
-    @GetMapping("/{shipmentId}")
-    public String alerts(@PathVariable Long shipmentId) {
-        return "alerts";
+    @PostMapping
+    public AlertRecord trigger(@RequestBody AlertRecord a) {
+        return service.triggerAlert(a);
+    }
+
+    @PutMapping("/{id}/acknowledge")
+    public AlertRecord acknowledge(@PathVariable Long id) {
+        return service.acknowledgeAlert(id);
+    }
+
+    @GetMapping("/shipment/{shipmentId}")
+    public List<AlertRecord> getByShipment(@PathVariable Long shipmentId) {
+        return service.getAlertsByShipment(shipmentId);
+    }
+
+    @GetMapping
+    public List<AlertRecord> getAll() {
+        return service.getAllAlerts();
     }
 }

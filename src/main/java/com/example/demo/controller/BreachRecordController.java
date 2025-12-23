@@ -1,8 +1,3 @@
-package com.example.demo.controller;
-
-import org.springframework.web.bind.annotation.*;
-import com.example.demo.service.BreachDetectionService;
-
 @RestController
 @RequestMapping("/api/breaches")
 public class BreachRecordController {
@@ -13,8 +8,23 @@ public class BreachRecordController {
         this.service = service;
     }
 
-    @GetMapping("/{shipmentId}")
-    public String breaches(@PathVariable Long shipmentId) {
-        return "breaches";
+    @PostMapping
+    public BreachRecord log(@RequestBody BreachRecord b) {
+        return service.logBreach(b);
+    }
+
+    @PutMapping("/{id}/resolve")
+    public BreachRecord resolve(@PathVariable Long id) {
+        return service.resolveBreach(id);
+    }
+
+    @GetMapping("/shipment/{shipmentId}")
+    public List<BreachRecord> getByShipment(@PathVariable Long shipmentId) {
+        return service.getBreachesByShipment(shipmentId);
+    }
+
+    @GetMapping
+    public List<BreachRecord> getAll() {
+        return service.getAllBreaches();
     }
 }

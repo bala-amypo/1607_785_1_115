@@ -1,28 +1,27 @@
-package com.example.demo.service.impl;
-
-import com.example.demo.model.AlertRecord;
-import com.example.demo.repository.AlertRecordRepository;
-import com.example.demo.service.AlertService;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-
 @Service
 public class AlertServiceImpl implements AlertService {
 
-    private final AlertRecordRepository repository;
+    private final AlertRecordRepository repo;
 
-    public AlertServiceImpl(AlertRecordRepository repository) {
-        this.repository = repository;
+    public AlertServiceImpl(AlertRecordRepository repo) {
+        this.repo = repo;
     }
 
-    @Override
-    public AlertRecord save(AlertRecord alert) {
-        return repository.save(alert);
+    public AlertRecord triggerAlert(AlertRecord alert) {
+        return repo.save(alert);
     }
 
-    @Override
-    public List<AlertRecord> findByShipmentId(Long shipmentId) {
-        return repository.findByShipmentId(shipmentId);
+    public AlertRecord acknowledgeAlert(Long id) {
+        AlertRecord a = repo.findById(id).orElseThrow();
+        a.setAcknowledged(true);
+        return repo.save(a);
+    }
+
+    public List<AlertRecord> getAlertsByShipment(Long shipmentId) {
+        return repo.findByShipment_Id(shipmentId);
+    }
+
+    public List<AlertRecord> getAllAlerts() {
+        return repo.findAll();
     }
 }
