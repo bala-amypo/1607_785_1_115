@@ -1,7 +1,6 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 public class BreachRecord {
@@ -10,37 +9,31 @@ public class BreachRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private ShipmentRecord shipment;
+    private Long shipmentId;
+    private Double temperature;
 
-    private String breachType;
-    private Double breachValue;
-    private String severity;
-    private String details;
-
-    private LocalDateTime detectedAt;
-    private Boolean resolved;
-
-    @PrePersist
-    void onCreate() {
-        detectedAt = LocalDateTime.now();
-        resolved = false;
+    // ✅ ADD THESE
+    public Long getId() {
+        return id;
     }
 
-    public BreachRecord() {}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Long getId() { return id; }
-    public ShipmentRecord getShipment() { return shipment; }
-    public void setShipment(ShipmentRecord shipment) { this.shipment = shipment; }
-    public String getBreachType() { return breachType; }
-    public void setBreachType(String breachType) { this.breachType = breachType; }
-    public Double getBreachValue() { return breachValue; }
-    public void setBreachValue(Double breachValue) { this.breachValue = breachValue; }
-    public String getSeverity() { return severity; }
-    public void setSeverity(String severity) { this.severity = severity; }
-    public String getDetails() { return details; }
-    public void setDetails(String details) { this.details = details; }
-    public LocalDateTime getDetectedAt() { return detectedAt; }
-    public Boolean getResolved() { return resolved; }
-    public void setResolved(Boolean resolved) { this.resolved = resolved; }
+    public Long getShipmentId() {
+        return shipmentId;
+    }
+
+    public void setShipmentId(Long shipmentId) {
+        this.shipmentId = shipmentId;
+    }
+
+    public Double getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(Double temperature) {
+        this.temperature = temperature;
+    }
 }

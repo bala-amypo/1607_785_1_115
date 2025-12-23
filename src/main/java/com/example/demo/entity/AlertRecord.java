@@ -1,7 +1,6 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 public class AlertRecord {
@@ -10,31 +9,31 @@ public class AlertRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private ShipmentRecord shipment;
-
-    private String alertType;
+    private Long shipmentId;
     private String message;
 
-    private LocalDateTime sentAt;
-    private Boolean acknowledged;
-
-    @PrePersist
-    void onCreate() {
-        sentAt = LocalDateTime.now();
-        acknowledged = false;
+    // ✅ ADD THESE
+    public Long getId() {
+        return id;
     }
 
-    public AlertRecord() {}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public Long getId() { return id; }
-    public ShipmentRecord getShipment() { return shipment; }
-    public void setShipment(ShipmentRecord shipment) { this.shipment = shipment; }
-    public String getAlertType() { return alertType; }
-    public void setAlertType(String alertType) { this.alertType = alertType; }
-    public String getMessage() { return message; }
-    public void setMessage(String message) { this.message = message; }
-    public LocalDateTime getSentAt() { return sentAt; }
-    public Boolean getAcknowledged() { return acknowledged; }
-    public void setAcknowledged(Boolean acknowledged) { this.acknowledged = acknowledged; }
+    public Long getShipmentId() {
+        return shipmentId;
+    }
+
+    public void setShipmentId(Long shipmentId) {
+        this.shipmentId = shipmentId;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }
