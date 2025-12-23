@@ -17,12 +17,18 @@ public class TemperatureRuleServiceImpl implements TemperatureRuleService {
     }
 
     @Override
-    public TemperatureRule createRule(TemperatureRule rule) {
+    public TemperatureRule create(TemperatureRule rule) {
         return repo.save(rule);
     }
 
     @Override
-    public List<TemperatureRule> getAllRules() {
+    public TemperatureRule update(Long id, TemperatureRule rule) {
+        rule.setId(id);
+        return repo.save(rule);
+    }
+
+    @Override
+    public List<TemperatureRule> getAll() {
         return repo.findAll();
     }
 }
