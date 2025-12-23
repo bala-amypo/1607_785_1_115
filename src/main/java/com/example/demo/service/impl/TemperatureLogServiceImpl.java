@@ -1,3 +1,12 @@
+package com.example.demo.service.impl;
+
+import com.example.demo.entity.TemperatureSensorLog;
+import com.example.demo.repository.TemperatureSensorLogRepository;
+import com.example.demo.service.TemperatureLogService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 @Service
 public class TemperatureLogServiceImpl implements TemperatureLogService {
 
@@ -7,15 +16,13 @@ public class TemperatureLogServiceImpl implements TemperatureLogService {
         this.repo = repo;
     }
 
-    public TemperatureSensorLog recordLog(TemperatureSensorLog log) {
+    @Override
+    public TemperatureSensorLog save(TemperatureSensorLog log) {
         return repo.save(log);
     }
 
-    public List<TemperatureSensorLog> getLogsByShipment(Long shipmentId) {
-        return repo.findByShipment_Id(shipmentId);
-    }
-
-    public List<TemperatureSensorLog> getAllLogs() {
-        return repo.findAll();
+    @Override
+    public List<TemperatureSensorLog> getByShipmentId(Long shipmentId) {
+        return repo.findByShipmentId(shipmentId);
     }
 }
