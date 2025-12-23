@@ -4,6 +4,7 @@ import com.example.demo.entity.ShipmentRecord;
 import com.example.demo.repository.ShipmentRecordRepository;
 import com.example.demo.service.ShipmentRecordService;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -15,25 +16,13 @@ public class ShipmentRecordServiceImpl implements ShipmentRecordService {
         this.repo = repo;
     }
 
-    public ShipmentRecord createShipment(ShipmentRecord shipment) {
-        return repo.save(shipment);
+    @Override
+    public ShipmentRecord create(ShipmentRecord record) {
+        return repo.save(record);
     }
 
-    public ShipmentRecord updateShipmentStatus(Long id, String status) {
-        ShipmentRecord s = repo.findById(id).orElseThrow();
-        s.setStatus(status);
-        return repo.save(s);
-    }
-
-    public ShipmentRecord getShipmentByCode(String code) {
-        return repo.findByShipmentCode(code).orElseThrow();
-    }
-
-    public ShipmentRecord getShipmentById(Long id) {
-        return repo.findById(id).orElseThrow();
-    }
-
-    public List<ShipmentRecord> getAllShipments() {
+    @Override
+    public List<ShipmentRecord> getAll() {
         return repo.findAll();
     }
 }
