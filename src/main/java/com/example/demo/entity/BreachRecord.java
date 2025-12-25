@@ -1,8 +1,10 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "breach_records")
 public class BreachRecord {
 
     @Id
@@ -10,30 +12,29 @@ public class BreachRecord {
     private Long id;
 
     private Long shipmentId;
-    private Double temperature;
+    private Long logId;
+    private String breachType;
+    private Double breachValue;
+    private String severity;
+    private String details;
+    private LocalDateTime detectedAt;
+    private Boolean resolved;
 
-    // ✅ ADD THESE
-    public Long getId() {
-        return id;
-    }
+    public BreachRecord() {}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getShipmentId() {
-        return shipmentId;
-    }
-
-    public void setShipmentId(Long shipmentId) {
+    public BreachRecord(Long shipmentId, Long logId, Double breachValue, String severity, boolean resolved) {
         this.shipmentId = shipmentId;
+        this.logId = logId;
+        this.breachValue = breachValue;
+        this.severity = severity;
+        this.resolved = resolved;
     }
 
-    public Double getTemperature() {
-        return temperature;
+    @PrePersist
+    void prePersist() {
+        detectedAt = LocalDateTime.now();
+        resolved = false;
     }
 
-    public void setTemperature(Double temperature) {
-        this.temperature = temperature;
-    }
+    // getters & setters
 }
