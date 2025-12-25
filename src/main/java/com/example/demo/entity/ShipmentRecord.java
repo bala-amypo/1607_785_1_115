@@ -31,4 +31,3 @@ public class ShipmentRecord {
     public String getDestination() { return destination; }
     public void setDestination(String destination) { this.destination = destination; }
 }
-q
