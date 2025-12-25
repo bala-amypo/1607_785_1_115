@@ -1,3 +1,4 @@
+// src/main/java/com/example/demo/entity/TemperatureSensorLog.java
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
@@ -12,26 +13,78 @@ public class TemperatureSensorLog {
     private Long id;
 
     private Long shipmentId;
+
     private String sensorId;
+
     private LocalDateTime recordedAt;
+
     private Double temperatureValue;
+
     private String location;
 
     public TemperatureSensorLog() {}
 
-    public TemperatureSensorLog(Long shipmentId, Double temperatureValue, LocalDateTime recordedAt, String location) {
+    public TemperatureSensorLog(Long shipmentId, String sensorId, LocalDateTime recordedAt, Double temperatureValue, String location) {
         this.shipmentId = shipmentId;
-        this.temperatureValue = temperatureValue;
+        this.sensorId = sensorId;
         this.recordedAt = recordedAt;
+        this.temperatureValue = temperatureValue;
         this.location = location;
     }
 
     @PrePersist
-    void prePersist() {
+    protected void prePersist() {
         if (recordedAt == null) {
             recordedAt = LocalDateTime.now();
         }
     }
 
-    // getters & setters
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getShipmentId() {
+        return shipmentId;
+    }
+
+    public void setShipmentId(Long shipmentId) {
+        this.shipmentId = shipmentId;
+    }
+
+    public String getSensorId() {
+        return sensorId;
+    }
+
+    public void setSensorId(String sensorId) {
+        this.sensorId = sensorId;
+    }
+
+    public LocalDateTime getRecordedAt() {
+        return recordedAt;
+    }
+
+    public void setRecordedAt(LocalDateTime recordedAt) {
+        this.recordedAt = recordedAt;
+    }
+
+    public Double getTemperatureValue() {
+        return temperatureValue;
+    }
+
+    public void setTemperatureValue(Double temperatureValue) {
+        this.temperatureValue = temperatureValue;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 }
