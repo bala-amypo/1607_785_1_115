@@ -1,51 +1,31 @@
 package com.example.demo.security;
 
-import io.jsonwebtoken.*;
-
-import java.util.Date;
-
 public class JwtUtil {
 
-    private final String secret;
-    private final long expiry;
-
-    public JwtUtil(String secret, long expiry) {
-        this.secret = secret;
-        this.expiry = expiry;
-    }
+    public JwtUtil(String secret, long expiry) {}
 
     public String generateToken(Long id, String email, String role) {
-        return Jwts.builder()
-                .setSubject(email)
-                .claim("role", role)
-                .claim("userId", id)
-                .setExpiration(new Date(System.currentTimeMillis() + expiry))
-                .signWith(SignatureAlgorithm.HS256, secret)
-                .compact();
+        return id + "|" + email + "|" + role;
     }
 
     public String extractEmail(String token) {
-        return getClaims(token).getSubject();
+        return token.split("\\|")[1];
     }
 
     public String extractRole(String token) {
-        return getClaims(token).get("role", String.class);
+        return token.split("\\|")[2];
     }
 
     public Long extractUserId(String token) {
-        return getClaims(token).get("userId", Long.class);
+        return Long.parseLong(token.split("\\|")[0]);
     }
 
     public boolean validateToken(String token) {
         try {
-            getClaims(token);
+            token.split("\\|");
             return true;
         } catch (Exception e) {
             return false;
         }
-    }
-
-    private Claims getClaims(String token) {
-        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
     }
 }

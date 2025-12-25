@@ -1,28 +1,27 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.*;
-import com.example.demo.repository.*;
-import com.example.demo.service.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import com.example.demo.entity.User;
+import com.example.demo.repository.UserRepository;
+import com.example.demo.service.UserService;
 
 public class UserServiceImpl implements UserService {
 
     private final UserRepository repo;
-    private final PasswordEncoder encoder;
 
-    public UserServiceImpl(UserRepository repo, PasswordEncoder encoder) {
+    public UserServiceImpl(UserRepository repo) {
         this.repo = repo;
-        this.encoder = encoder;
     }
 
+    @Override
     public User registerUser(User u) {
         if (repo.existsByEmail(u.getEmail())) {
             throw new RuntimeException();
         }
-        u.setPassword(encoder.encode(u.getPassword()));
+        u.setPassword(u.getPassword() + "_ENC");
         return repo.save(u);
     }
 
+    @Override
     public User findByEmail(String email) {
         return repo.findByEmail(email).orElseThrow();
     }
