@@ -1,15 +1,10 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.BreachRecord;
-import java.util.List;
+import java.util.*;
 
 public interface BreachDetectionService {
-
-    BreachRecord create(BreachRecord record);
-
-    BreachRecord update(Long id, BreachRecord record);
-
-    List<BreachRecord> getAll();
-
-    List<BreachRecord> getByShipmentId(Long shipmentId);
+    BreachRecord logBreach(BreachRecord b);
+    BreachRecord resolveBreach(Long id);
+    List<BreachRecord> getBreachesByShipment(Long shipmentId);
 }
