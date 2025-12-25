@@ -1,3 +1,4 @@
+// src/main/java/com/example/demo/repository/AlertRecordRepository.java
 package com.example.demo.repository;
 
 import com.example.demo.entity.AlertRecord;
@@ -5,8 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface AlertRecordRepository
-        extends JpaRepository<AlertRecord, Long> {
-
+public interface AlertRecordRepository extends JpaRepository<AlertRecord, Long> {
     List<AlertRecord> findByShipmentId(Long shipmentId);
 }
