@@ -1,13 +1,10 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.BreachRecord;
-import com.example.demo.repository.BreachRecordRepository;
-import com.example.demo.service.BreachDetectionService;
-import org.springframework.stereotype.Service;
+import com.example.demo.entity.*;
+import com.example.demo.repository.*;
+import com.example.demo.service.*;
+import java.util.*;
 
-import java.util.List;
-
-@Service
 public class BreachDetectionServiceImpl implements BreachDetectionService {
 
     private final BreachRecordRepository repo;
@@ -16,24 +13,17 @@ public class BreachDetectionServiceImpl implements BreachDetectionService {
         this.repo = repo;
     }
 
-    @Override
-    public BreachRecord create(BreachRecord record) {
-        return repo.save(record);
+    public BreachRecord logBreach(BreachRecord b) {
+        return repo.save(b);
     }
 
-    @Override
-    public BreachRecord update(Long id, BreachRecord record) {
-        record.setId(id);
-        return repo.save(record);
+    public BreachRecord resolveBreach(Long id) {
+        BreachRecord b = repo.findById(id).orElseThrow();
+        b.setResolved(true);
+        return repo.save(b);
     }
 
-    @Override
-    public List<BreachRecord> getAll() {
-        return repo.findAll();
-    }
-
-    @Override
-    public List<BreachRecord> getByShipmentId(Long shipmentId) {
-        return repo.findByShipmentId(shipmentId);
+    public List<BreachRecord> getBreachesByShipment(Long id) {
+        return repo.findByShipmentId(id);
     }
 }

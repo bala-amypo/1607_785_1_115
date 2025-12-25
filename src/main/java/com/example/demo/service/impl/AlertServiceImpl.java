@@ -1,13 +1,10 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.AlertRecord;
-import com.example.demo.repository.AlertRecordRepository;
-import com.example.demo.service.AlertService;
-import org.springframework.stereotype.Service;
+import com.example.demo.entity.*;
+import com.example.demo.repository.*;
+import com.example.demo.service.*;
+import java.util.*;
 
-import java.util.List;
-
-@Service
 public class AlertServiceImpl implements AlertService {
 
     private final AlertRecordRepository repo;
@@ -16,24 +13,11 @@ public class AlertServiceImpl implements AlertService {
         this.repo = repo;
     }
 
-    @Override
-    public AlertRecord create(AlertRecord record) {
-        return repo.save(record);
+    public AlertRecord triggerAlert(AlertRecord a) {
+        return repo.save(a);
     }
 
-    @Override
-    public AlertRecord update(Long id, AlertRecord record) {
-        record.setId(id);
-        return repo.save(record);
-    }
-
-    @Override
-    public List<AlertRecord> getAll() {
-        return repo.findAll();
-    }
-
-    @Override
-    public List<AlertRecord> getByShipmentId(Long shipmentId) {
-        return repo.findByShipmentId(shipmentId);
+    public List<AlertRecord> getAlertsByShipment(Long id) {
+        return repo.findByShipmentId(id);
     }
 }

@@ -1,13 +1,11 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.TemperatureRule;
-import com.example.demo.repository.TemperatureRuleRepository;
-import com.example.demo.service.TemperatureRuleService;
-import org.springframework.stereotype.Service;
+import com.example.demo.entity.*;
+import com.example.demo.repository.*;
+import com.example.demo.service.*;
+import java.time.LocalDate;
+import java.util.*;
 
-import java.util.List;
-
-@Service
 public class TemperatureRuleServiceImpl implements TemperatureRuleService {
 
     private final TemperatureRuleRepository repo;
@@ -16,19 +14,18 @@ public class TemperatureRuleServiceImpl implements TemperatureRuleService {
         this.repo = repo;
     }
 
-    @Override
-    public TemperatureRule create(TemperatureRule rule) {
-        return repo.save(rule);
+    public TemperatureRule createRule(TemperatureRule r) {
+        if (r.getMinTemp() > r.getMaxTemp()) {
+            throw new IllegalArgumentException();
+        }
+        return repo.save(r);
     }
 
-    @Override
-    public TemperatureRule update(Long id, TemperatureRule rule) {
-        rule.setId(id);
-        return repo.save(rule);
+    public List<TemperatureRule> getActiveRules() {
+        return repo.findByActiveTrue();
     }
 
-    @Override
-    public List<TemperatureRule> getAll() {
-        return repo.findAll();
+    public Optional<TemperatureRule> getRuleForProduct(String product, LocalDate date) {
+        return repo.findApplicableRule(product, date);
     }
 }
