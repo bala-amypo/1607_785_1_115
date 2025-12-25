@@ -1,11 +1,11 @@
-// src/main/java/com/example/demo/repository/ShipmentRecordRepository.java
 package com.example.demo.repository;
 
-import com.example.demo.entity.ShipmentRecord;
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.*;
+import com.example.demo.entity.*;
 
-import java.util.Optional;
-
-public interface ShipmentRecordRepository extends JpaRepository<ShipmentRecord, Long> {
+public interface ShipmentRecordRepository {
+    ShipmentRecord save(ShipmentRecord s);
+    Optional<ShipmentRecord> findById(Long id);
     Optional<ShipmentRecord> findByShipmentCode(String code);
+    List<ShipmentRecord> findAll();
 }

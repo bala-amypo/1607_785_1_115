@@ -1,11 +1,5 @@
-// src/main/java/com/example/demo/repository/BreachRecordRepository.java
-package com.example.demo.repository;
-
-import com.example.demo.entity.BreachRecord;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
-
-public interface BreachRecordRepository extends JpaRepository<BreachRecord, Long> {
-    List<BreachRecord> findByShipmentId(Long shipmentId);
+public interface BreachRecordRepository {
+    BreachRecord save(BreachRecord b);
+    Optional<BreachRecord> findById(Long id);
+    List<BreachRecord> findByShipmentId(Long id);
 }
