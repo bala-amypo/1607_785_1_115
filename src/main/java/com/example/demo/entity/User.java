@@ -1,4 +1,7 @@
+package com.example.demo.entity;
+
 public class User {
+
     private Long id;
     private String fullName;
     private String email;
@@ -7,9 +10,9 @@ public class User {
 
     public User() {}
 
-    public User(Long id, String name, String email, String password, String role) {
+    public User(Long id, String fullName, String email, String password, String role) {
         this.id = id;
-        this.fullName = name;
+        this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.role = role;
