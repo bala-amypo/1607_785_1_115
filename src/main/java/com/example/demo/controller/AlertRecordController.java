@@ -1,41 +1,47 @@
+// src/main/java/com/example/demo/controller/AlertRecordController.java
 package com.example.demo.controller;
 
 import com.example.demo.entity.AlertRecord;
 import com.example.demo.service.AlertService;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Alerts")
 @RestController
-@RequestMapping("/alerts")
+@RequestMapping("/api/alerts")
 public class AlertRecordController {
 
-    private final AlertService service;
+    private final AlertService alertService;
 
-    public AlertRecordController(AlertService service) {
-        this.service = service;
+    public AlertRecordController(AlertService alertService) {
+        this.alertService = alertService;
     }
 
     @PostMapping
-    public AlertRecord create(@RequestBody AlertRecord record) {
-        return service.create(record);
+    public ResponseEntity<AlertRecord> triggerAlert(@RequestBody AlertRecord alert) {
+        return ResponseEntity.ok(alertService.triggerAlert(alert));
     }
 
-    @PutMapping("/{id}")
-    public AlertRecord update(
-            @PathVariable Long id,
-            @RequestBody AlertRecord record) {
-        return service.update(id, record);
-    }
-
-    @GetMapping
-    public List<AlertRecord> getAll() {
-        return service.getAll();
+    @PutMapping("/{id}/acknowledge")
+    public ResponseEntity<AlertRecord> acknowledgeAlert(@PathVariable Long id) {
+        return ResponseEntity.ok(alertService.acknowledgeAlert(id));
     }
 
     @GetMapping("/shipment/{shipmentId}")
-    public List<AlertRecord> getByShipment(
-            @PathVariable Long shipmentId) {
-        return service.getByShipmentId(shipmentId);
+    public ResponseEntity<List<AlertRecord>> getAlertsByShipment(@PathVariable Long shipmentId) {
+        return ResponseEntity.ok(alertService.getAlertsByShipment(shipmentId));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<AlertRecord> getAlertById(@PathVariable Long id) {
+        return ResponseEntity.ok(alertService.getAlertById(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<AlertRecord>> getAllAlerts() {
+        return ResponseEntity.ok(alertService.getAllAlerts());
     }
 }

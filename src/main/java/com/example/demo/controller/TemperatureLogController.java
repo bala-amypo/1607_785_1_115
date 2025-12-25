@@ -1,29 +1,42 @@
+// src/main/java/com/example/demo/controller/TemperatureLogController.java
 package com.example.demo.controller;
 
 import com.example.demo.entity.TemperatureSensorLog;
 import com.example.demo.service.TemperatureLogService;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Temperature Logs")
 @RestController
-@RequestMapping("/temperature-logs")
+@RequestMapping("/api/logs")
 public class TemperatureLogController {
 
-    private final TemperatureLogService service;
+    private final TemperatureLogService temperatureLogService;
 
-    public TemperatureLogController(TemperatureLogService service) {
-        this.service = service;
+    public TemperatureLogController(TemperatureLogService temperatureLogService) {
+        this.temperatureLogService = temperatureLogService;
     }
 
     @PostMapping
-    public TemperatureSensorLog create(@RequestBody TemperatureSensorLog log) {
-        return service.save(log);
+    public ResponseEntity<TemperatureSensorLog> recordLog(@RequestBody TemperatureSensorLog log) {
+        return ResponseEntity.ok(temperatureLogService.recordLog(log));
     }
 
-    @GetMapping("/{shipmentId}")
-    public List<TemperatureSensorLog> getByShipment(
-            @PathVariable Long shipmentId) {
-        return service.getByShipmentId(shipmentId);
+    @GetMapping("/shipment/{shipmentId}")
+    public ResponseEntity<List<TemperatureSensorLog>> getLogsByShipment(@PathVariable Long shipmentId) {
+        return ResponseEntity.ok(temperatureLogService.getLogsByShipment(shipmentId));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<TemperatureSensorLog> getLogById(@PathVariable Long id) {
+        return ResponseEntity.ok(temperatureLogService.getLogById(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<TemperatureSensorLog>> getAllLogs() {
+        return ResponseEntity.ok(temperatureLogService.getAllLogs());
     }
 }
