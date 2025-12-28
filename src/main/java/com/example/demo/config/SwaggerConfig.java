@@ -22,7 +22,7 @@ public class SwaggerConfig {
                 .bearerFormat("JWT");
 
         Server server = new Server()
-                .url("https://9131.pro604cr.amypo.ai/")
+                .url("https://9139.32procr.amypo.ai/")
                 .description("Production Server");
 
         return new OpenAPI()

@@ -1,8 +1,14 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
+import org.springframework.web.bind.annotation.*;
+
 import com.example.demo.entity.ShipmentRecord;
 import com.example.demo.service.ShipmentRecordService;
 
+@RestController
+@RequestMapping("/api/shipments")
 public class ShipmentRecordController {
 
     private final ShipmentRecordService service;
@@ -11,15 +17,30 @@ public class ShipmentRecordController {
         this.service = service;
     }
 
-    public ShipmentRecord createShipment(ShipmentRecord s) {
-        return service.createShipment(s);
+    @PostMapping
+    public ShipmentRecord create(@RequestBody ShipmentRecord shipment) {
+        return service.createShipment(shipment);
     }
 
-    public ShipmentRecord updateShipmentStatus(Long id, String status) {
+    @PutMapping("/{id}/status")
+    public ShipmentRecord updateStatus(
+            @PathVariable Long id,
+            @RequestParam String status) {
         return service.updateShipmentStatus(id, status);
     }
 
-    public ShipmentRecord getShipmentByCode(String code) {
-        return service.getShipmentByCode(code).orElse(null);
+    @GetMapping("/code/{shipmentCode}")
+    public ShipmentRecord getByCode(@PathVariable String shipmentCode) {
+        return service.getShipmentByCode(shipmentCode).orElse(null);
+    }
+
+    @GetMapping("/{id}")
+    public ShipmentRecord getById(@PathVariable Long id) {
+        return service.getShipmentById(id);
+    }
+
+    @GetMapping
+    public List<ShipmentRecord> getAll() {
+        return service.getAllShipments();
     }
 }
