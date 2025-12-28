@@ -1,33 +1,53 @@
+
 package com.example.demo.entity;
 
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "shipment_records")
 public class ShipmentRecord {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String shipmentCode;
-    private String status;
     private String origin;
     private String destination;
+    private String status;
+    private LocalDateTime createdAt;
 
-    public void prePersist() {
-        if (status == null) status = "IN_TRANSIT";
-    }
+    public ShipmentRecord() {}
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public String getShipmentCode() { return shipmentCode; }
-    public void setShipmentCode(String shipmentCode) { this.shipmentCode = shipmentCode; }
-
-    public String getStatus() { return status; }
-
-    // ✅ THIS METHOD WAS MISSING
-    public void setStatus(String status) {
+    public ShipmentRecord(String shipmentCode, String origin,
+                          String destination, String status) {
+        this.shipmentCode = shipmentCode;
+        this.origin = origin;
+        this.destination = destination;
         this.status = status;
     }
 
-    public String getOrigin() { return origin; }
-    public void setOrigin(String origin) { this.origin = origin; }
+    @PrePersist
+    public void prePersist() {
+        if (this.status == null) {
+            this.status = "IN_TRANSIT";
+        }
+        this.createdAt = LocalDateTime.now();
+    }
 
+    // GETTERS
+    public Long getId() { return id; }
+    public String getShipmentCode() { return shipmentCode; }
+    public String getOrigin() { return origin; }
     public String getDestination() { return destination; }
+    public String getStatus() { return status; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+
+    // SETTERS
+    public void setId(Long id) { this.id = id; }
+    public void setShipmentCode(String shipmentCode) { this.shipmentCode = shipmentCode; }
+    public void setOrigin(String origin) { this.origin = origin; }
     public void setDestination(String destination) { this.destination = destination; }
+    public void setStatus(String status) { this.status = status; }
 }

@@ -1,10 +1,15 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.TemperatureRule;
-import com.example.demo.service.TemperatureRuleService;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.*;
+
+import com.example.demo.entity.TemperatureRule;
+import com.example.demo.service.TemperatureRuleService;
+
+@RestController
+@RequestMapping("/api/rules")
 public class TemperatureRuleController {
 
     private final TemperatureRuleService service;
@@ -13,15 +18,38 @@ public class TemperatureRuleController {
         this.service = service;
     }
 
-    public TemperatureRule createRule(TemperatureRule r) {
-        return service.createRule(r);
+    @PostMapping
+    public TemperatureRule create(@RequestBody TemperatureRule rule) {
+        return service.createRule(rule);
     }
 
-    public List<TemperatureRule> getActiveRules() {
+    @PutMapping("/{id}")
+    public TemperatureRule update(
+            @PathVariable Long id,
+            @RequestBody TemperatureRule rule) {
+        return service.updateRule(id, rule);
+    }
+
+    @GetMapping("/active")
+    public List<TemperatureRule> getActive() {
         return service.getActiveRules();
     }
 
-    public TemperatureRule getRuleForProduct(String product, LocalDate date) {
-        return service.getRuleForProduct(product, date).orElse(null);
+    @GetMapping("/product/{productType}")
+    public TemperatureRule getForProduct(
+            @PathVariable String productType,
+            @RequestParam(required = false) LocalDate date) {
+
+        return service
+                .getRuleForProduct(
+                        productType,
+                        date != null ? date : LocalDate.now()
+                )
+                .orElse(null);
+    }
+
+    @GetMapping
+    public List<TemperatureRule> getAll() {
+        return service.getAllRules();
     }
 }
