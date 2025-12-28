@@ -1,25 +1,49 @@
 package com.example.demo.entity;
 
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "temperature_sensor_logs")
 public class TemperatureSensorLog {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private Long shipmentId;
     private Double temperatureValue;
+    private LocalDateTime recordedAt;
     private String location;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public TemperatureSensorLog() {}
 
-    public Long getShipmentId() { return shipmentId; }
-    public void setShipmentId(Long shipmentId) { this.shipmentId = shipmentId; }
-
-    public Double getTemperatureValue() { return temperatureValue; }
-    public void setTemperatureValue(Double temperatureValue) {
+    public TemperatureSensorLog(Long shipmentId, Double temperatureValue,
+                                LocalDateTime recordedAt, String location) {
+        this.shipmentId = shipmentId;
         this.temperatureValue = temperatureValue;
-    }
-
-    public String getLocation() { return location; }
-    public void setLocation(String location) {
+        this.recordedAt = recordedAt;
         this.location = location;
     }
+
+    @PrePersist
+    public void prePersist() {
+        if (this.recordedAt == null) {
+            this.recordedAt = LocalDateTime.now();
+        }
+    }
+
+    // GETTERS
+    public Long getId() { return id; }
+    public Long getShipmentId() { return shipmentId; }
+    public Double getTemperatureValue() { return temperatureValue; }
+    public LocalDateTime getRecordedAt() { return recordedAt; }
+    public String getLocation() { return location; }
+
+    // SETTERS (REQUIRED BY TESTS)
+    public void setId(Long id) { this.id = id; }
+    public void setShipmentId(Long shipmentId) { this.shipmentId = shipmentId; }
+    public void setTemperatureValue(Double temperatureValue) { this.temperatureValue = temperatureValue; }
+    public void setRecordedAt(LocalDateTime recordedAt) { this.recordedAt = recordedAt; }
+    public void setLocation(String location) { this.location = location; }
 }

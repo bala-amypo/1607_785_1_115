@@ -1,9 +1,11 @@
 package com.example.demo.repository;
 
-import java.util.*;
-import com.example.demo.entity.*;
-public interface BreachRecordRepository {
-    BreachRecord save(BreachRecord b);
-    Optional<BreachRecord> findById(Long id);
-    List<BreachRecord> findByShipmentId(Long id);
+import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.demo.entity.BreachRecord;
+
+public interface BreachRecordRepository
+        extends JpaRepository<BreachRecord, Long> {
+
+    List<BreachRecord> findByShipmentId(Long shipmentId);
 }
