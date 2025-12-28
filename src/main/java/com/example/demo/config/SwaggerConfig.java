@@ -24,7 +24,7 @@ public class SwaggerConfig {
                         new Server().url("https://9131.pro604cr.amypo.ai/")
                 ))
                 // ✅ This line enables the Authorize button
-                .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
+                
                 .components(
                         new Components()
                                 .addSecuritySchemes(securitySchemeName,
